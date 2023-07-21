@@ -84,5 +84,11 @@ const Container = styled.div`
       grid-template: 35% 65%;
     }
   }
+  @media only screen and (max-width: 600px) {
+    .container {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
 `;
 export default Chat;

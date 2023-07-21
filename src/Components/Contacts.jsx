@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { ImCross } from "react-icons/im";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleReducer } from "../Redux/toggleContacts";
+
 const Contacts = ({ allContacts, currentUser, changeChat }) => {
+  const dispatch = useDispatch();
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -14,34 +19,38 @@ const Contacts = ({ allContacts, currentUser, changeChat }) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
-
+  const Toggle = useSelector((state) => state.toggle.toggle);
   return (
     <>
-      {currentUserImage && currentUserName && (
+      {currentUserImage && currentUserName && Toggle && (
         <Container>
           <div className="brand">
             <h3>Chit Chat</h3>
+            <ImCross onClick={() => dispatch(toggleReducer(false))} />
           </div>
           <div className="contacts">
-            {allContacts.map((contact, index) => (
-              <div
-                className={`contact ${
-                  index === currentSelected ? "selected" : ""
-                }`}
-                key={index}
-                onClick={() => changeCurrentChat(index, contact)}
-              >
-                <div className="avatar">
-                  <img
-                    src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                    alt="avatarImage"
-                  />
-                </div>
-                <div className="username">
-                  <h3>{contact.username}</h3>
-                </div>
-              </div>
-            ))}
+            {allContacts.map(
+              (contact, index) =>
+                contact.avatarImage && (
+                  <div
+                    className={`contact ${
+                      index === currentSelected ? "selected" : ""
+                    }`}
+                    key={index}
+                    onClick={() => changeCurrentChat(index, contact)}
+                  >
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt="avatarImage"
+                      />
+                    </div>
+                    <div className="username">
+                      <h3>{contact.username}</h3>
+                    </div>
+                  </div>
+                )
+            )}
           </div>
           <div className="current-user">
             {" "}
@@ -64,6 +73,7 @@ const Contacts = ({ allContacts, currentUser, changeChat }) => {
 const Container = styled.div`
   display: grid;
   overflow: hidden;
+  height: 85vh;
   grid-template-rows: 10% 75% 15%;
   background: #080420;
   .brand {
@@ -77,6 +87,10 @@ const Container = styled.div`
     h3 {
       color: white;
       text-transform: uppercase;
+    }
+    svg {
+      color: white;
+      display: none;
     }
   }
   .contacts {
@@ -134,6 +148,31 @@ const Container = styled.div`
           font-size: 1rem;
         }
       }
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    position: absolute !important;
+    left: 0;
+    height: 100vh;
+    width: 60vw;
+    z-index: 2;
+    .brand {
+      justify-content: space-around;
+      svg {
+        display: block;
+      }
+    }
+    .current-user {
+      gap: 1.5rem;
+      .avatar {
+        img {
+          height: 3rem;
+        }
+      }
+    }
+    .contacts .contact {
+      min-height: 4rem;
+      gap: 1rem;
     }
   }
 `;

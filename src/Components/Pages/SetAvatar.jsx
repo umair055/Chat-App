@@ -21,17 +21,21 @@ const SetAvatar = () => {
     if (selectedAvatar === undefined) toast.error("Please select an avatar");
     else {
       const user = await JSON.parse(localStorage.getItem("chat-app-user"));
-      const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
-        image: avatars[selectedAvatar],
-      });
-      if (data.isSet) {
-        user.isAvatarImageSet = true;
-        user.avatarImage = data.image;
-        localStorage.setItem("chat-app-user", JSON.stringify(user));
-        navigate("/");
-      } else {
-        toast.error("Error setting avatar. Please try again later.");
-      }
+      await axios
+        .post(`${setAvatarRoute}/${user._id}`, {
+          image: avatars[selectedAvatar],
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.data.isSet) {
+            user.isAvatarImageSet = true;
+            user.avatarImage = data.data.image;
+            localStorage.setItem("chat-app-user", JSON.stringify(user));
+            navigate("/");
+          } else {
+            toast.error("Error setting avatar. Please try again later.");
+          }
+        });
     }
   };
   console.log(selectedAvatar);
@@ -100,6 +104,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 3rem;
+
   background: #131324;
   height: 100vh;
   width: 100vw;
@@ -111,11 +116,15 @@ const Container = styled.div`
   }
   .title-container h1 {
     color: white;
+    text-align: center;
   }
 
   .avatars {
     display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
   .avatars .avatar {
     border: 0.4rem solid transparent;

@@ -5,7 +5,11 @@ import ChatInput from "./ChatInput";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { sendMessageRoute, getMessageRoute } from "../utils/APIRoutes";
+import { FiMenu } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { toggleReducer } from "../Redux/toggleContacts";
 const ChatContainer = ({ currentChat, user, socket }) => {
+  const dispatch = useDispatch();
   const [allMessages, setAllMessages] = useState([]);
   const [arrivedMessage, setArrivedMessage] = useState();
   const scrollRef = useRef();
@@ -55,6 +59,7 @@ const ChatContainer = ({ currentChat, user, socket }) => {
     <Container>
       <div className="chat-header">
         <div className="user-detail">
+          <FiMenu onClick={() => dispatch(toggleReducer(true))} />
           <div className="avatar">
             <img
               src={`data:image/svg+xml;base64,${currentChat?.avatarImage}`}
@@ -86,20 +91,45 @@ const ChatContainer = ({ currentChat, user, socket }) => {
 };
 const Container = styled.div`
   padding-top: 1rem;
-  height:80%;
+ height:85vh;
+ position:relative;
   flex-direction:column;
+  @media only screen and (max-width: 600px) {
+    height:100vh !important;
+    width:100vw;
+}
   .chat-header {
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    @media only screen and (max-width: 600px){
+      padding:0 0.5rem;
+    }
     .user-detail {
       display: flex;
       align-items: center;
       gap: 1rem;
+      
+      svg{
+        display:none;
+        color:white
+      }
+      @media only screen and (max-width: 600px){
+        svg{
+          display:block;
+        }
+      }
       .avatar {
+      
         img {
           height: 3rem;
+        }
+        @media only screen and (max-width: 600px){
+          img{
+            height:2.3rem;
+          }
         }
       }
       .username {
@@ -112,10 +142,14 @@ const Container = styled.div`
   .chat-messages {
     padding: 1rem 2rem;
     overflow: auto;
-   
+    max-height:80%;
+    @media only screen and (max-width: 600px){
+      padding:1rem 1rem;
+    }
     .message {
       display: flex;
       align-items: center;
+    
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
@@ -123,6 +157,11 @@ const Container = styled.div`
         font-size: 1.1rem;
         border-radius: 1rem;
         color: #d1d1d1;
+        @media only screen and (max-width: 600px){
+          font-size:0.8rem;
+          padding:0.7rem;
+          margin-bottom:0.3rem;
+        }
       }
     }
     .sended {
@@ -137,5 +176,6 @@ const Container = styled.div`
         background: #9900ff20;
       }
   }
+ 
 `;
 export default ChatContainer;

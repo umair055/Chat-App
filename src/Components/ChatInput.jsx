@@ -55,11 +55,17 @@ const ChatInput = ({ handleSendMessage }) => {
 };
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 5% 95%;
-  align-item: center;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  align-items: center;
   background: #080420;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  @media only screen and (max-width: 600px) {
+    padding: 0 0.5rem;
+  }
   padding-bottom: 0.3rem;
   .button-container {
     display: flex;
@@ -75,9 +81,16 @@ const Container = styled.div`
       }
       .EmojiPickerReact {
         position: absolute;
-        top: -330px;
-        height: 50vh !important;
+        top: -370px;
+        z-index: 1;
+        height: 22rem !important;
         width: 30vw !important;
+        @media only screen and (max-width: 600px) {
+          width: 50vw !important;
+        }
+        @media only screen and (max-width: 400px) {
+          width: 75vw !important;
+        }
       }
     }
   }
@@ -86,7 +99,7 @@ const Container = styled.div`
     border-radius: 2rem;
     display: flex;
     align-items: center;
-    gap: 3rem;
+    justify-content: space-between;
     background: #ffffff34;
     input {
       width: 80%;
@@ -111,6 +124,9 @@ const Container = styled.div`
       justify-content: center;
       background: #9186f3;
       border: none;
+      @media only screen and (max-width: 600px) {
+        padding: 0.3rem 1rem;
+      }
       svg {
         font-size: 2rem;
         color: white;

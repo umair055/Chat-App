@@ -98,60 +98,66 @@ const Register = () => {
 const FromContainer = styled.div`
   height: 100vh;
   width: 100vw;
-  display:flex;
-  flex-direction:column;
-  gap:1rem,
-  align-items:center;
-  background:#131324;
- .brand h1{
-    color:white;
-    text-transform:uppercase;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  background: #131324;
+
+  .brand h1 {
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
   }
   form {
-    display:flex;
-    flex-direction:column;
-    gap:2rem;
-    background:#00000076;
-    border-radius:2rem;
-    padding:3rem 5rem;
-    input{
-      background:transparent;
-      padding:1rem;
-      border:0.1rem solid #4e0eff;
-      border-radius:0.4rem;
-      color:white;
-      width:100%;
-      font-size:1rem;
-      &:focus{
-        border:0.1rem solid #997af0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: #00000076;
+    border-radius: 2rem;
+    padding: 3rem 5rem;
+    @media only screen and (max-width: 480px) {
+      padding: 3rem 2rem;
+      background: none;
+    }
+    input {
+      background: transparent;
+      padding: 1rem;
+      border: 0.1rem solid #4e0eff;
+      border-radius: 0.4rem;
+      color: white;
+      width: 100%;
+      font-size: 1rem;
+      &:focus {
+        border: 0.1rem solid #997af0;
       }
-    
-
     }
- .SignUpButton{
-      background:#997af0;
-      color:white;
-      padding:1rem 2rem;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-      border-radius:0.4rem;
-      font-size:1rem;
-      text-transfrom:uppercase;
-      transition:0.5s ease-in-out;
-      &:hover{background:#4e0eff}
+    .SignUpButton {
+      background: #997af0;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0.4rem;
+      font-size: 1rem;
+      text-transfrom: uppercase;
+      transition: 0.5s ease-in-out;
+      &:hover {
+        background: #4e0eff;
+      }
     }
-    span{
-      color:white;
-      text-transform:uppercase;
-      font-weight:bold;
-a{
-  color:#4e0eff;
-  text-decoration:none;
-  font-weight:bold;
-}
+    span {
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      a {
+        color: #4e0eff;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
-
   }
 `;
 export default Register;
