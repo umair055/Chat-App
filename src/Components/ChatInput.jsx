@@ -11,11 +11,11 @@ const ChatInput = ({ handleSendMessage }) => {
     setShowEmojiPicker(!showEmojiPicker);
   };
   const onEmojiClick = (e, emoji) => {
-    console.log("object");
+   
     let msg = message;
     msg += emoji.emoji;
     setMessage(msg);
-    console.log(e.emoji);
+
   };
   const handleChat = (event) => {
     event.preventDefault();

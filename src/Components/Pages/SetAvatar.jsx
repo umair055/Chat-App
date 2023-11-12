@@ -26,7 +26,6 @@ const SetAvatar = () => {
           image: avatars[selectedAvatar],
         })
         .then((data) => {
-          console.log(data);
           if (data.data.isSet) {
             user.isAvatarImageSet = true;
             user.avatarImage = data.data.image;
@@ -38,7 +37,6 @@ const SetAvatar = () => {
         });
     }
   };
-  console.log(selectedAvatar);
 
   useEffect(() => {
     const getAvatars = async () => {
